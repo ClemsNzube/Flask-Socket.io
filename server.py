@@ -14,13 +14,13 @@ def indexPage():
 def connection():
     print("A user connected")
 
-def ack():
-    print("client recieved message succefully")
+def broadcastAck():
+    print("Other clients recieved the broadcasted event succefully")
 
 
 @socketio.on('message')
 def handle_message(msg):
-    send(msg, broadcast=True)
+    send(msg, broadcast=True, include_self=False, callback=broadcastAck)
 
 @socketio.on('disconnect')
 def disconnection():
